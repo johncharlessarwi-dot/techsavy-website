@@ -1,0 +1,129 @@
+[
+  {
+    "name": "Save a guest quotation with a durable reference",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "Home navigation",
+      "POST /api/requests",
+      "guest quotation",
+      "submission confirmation",
+      "GET /api/content"
+    ],
+    "description": "A visitor can submit equipment requirements and receives a persisted reference.",
+    "steps": [
+      "Open Home and choose Get a quote.",
+      "Enter name QA Equipment Buyer, contact qa-buyer@example.com, quantity 2 and message Two office laptops.",
+      "Agree to be contacted and send the request.",
+      "Confirm a TS- reference is shown. Close the dialog and navigate to Services, About and Contact."
+    ],
+    "expected": "The request is saved and a reference is displayed only after the server accepts it; all public pages are usable."
+  },
+  {
+    "name": "Manage product lifecycle and public browsing",
+    "viewport": "desktop",
+    "covers": [
+      "admin authentication",
+      "GET /api/admin",
+      "POST /api/admin/products",
+      "PUT /api/admin/products/:id",
+      "POST /api/admin/images",
+      "image upload and replacement",
+      "draft publish archive restore",
+      "GET /api/products",
+      "GET /api/products/:id",
+      "product filtering",
+      "public product detail",
+      "product request"
+    ],
+    "description": "The approved administrator can manage a product and visitors only see published products.",
+    "steps": [
+      "Open Admin and sign in using the approved project-owner account. If that account is unavailable, report this test as blocked rather than bypassing authorization.",
+      "Add a product named QA Office Laptop with category Laptops, description QA test equipment, price 850000 and availability Available. Upload a real small PNG image. Save as Draft.",
+      "Confirm the product persists after refreshing Admin and is absent from the public catalog.",
+      "Edit it to Published, save, and open Products. Search QA Office Laptop, filter Laptops, and open the product detail.",
+      "Submit a product request with name QA Product Buyer, contact qa-product@example.com, quantity 1 and consent. Confirm a TS- reference.",
+      "Return to Admin, replace the image by uploading another PNG and removing the first from the product. Save and refresh to verify the new image persists.",
+      "Archive the product and verify it disappears from the public catalog. Restore it to Published and verify it returns."
+    ],
+    "expected": "Product and image changes persist, publication states are enforced, search and details work, and the product request is saved."
+  },
+  {
+    "name": "Handle requests company content and audit history",
+    "viewport": "desktop",
+    "covers": [
+      "service requests",
+      "contact requests",
+      "GET /api/admin",
+      "PUT /api/admin/requests/:id",
+      "request status transitions and history",
+      "POST /api/admin/requests/:id/notify",
+      "notification failure visibility",
+      "PUT /api/admin/content",
+      "company content persistence",
+      "GET /api/admin/audit",
+      "sign out"
+    ],
+    "description": "An authorized owner can process incoming requests and update company information with audit history.",
+    "setup": [
+      "Submit a Networking service request as QA Network Buyer with contact qa-network@example.com and message Assess our office network, with consent.",
+      "Submit a Contact request as QA Contact Buyer with contact qa-contact@example.com and message Please explain available computer services, with consent."
+    ],
+    "steps": [
+      "Sign in to Admin with the approved owner account. If unavailable, report blocked.",
+      "Open Requests and find QA Network Buyer. Open its reference and update New to Contacted with reason QA reviewed.",
+      "Refresh the dashboard and confirm Contacted and its history remain visible. Continue to Confirmed and then Completed with reasons. Confirm no further status actions are offered.",
+      "Inspect the company email notification; retry if not Sent. If credentials are absent it must say Not configured without removing the request.",
+      "Open Company and save an updated about paragraph identifying TECHSAVY computer sales and IT services, without inventing contact details. Refresh and check About displays it.",
+      "Open Audit and verify product/request/content events appear when those operations have occurred. Sign out and confirm dashboard records disappear."
+    ],
+    "expected": "Requests and content persist, terminal states cannot be changed, email failures remain visible and sign-out hides private data."
+  },
+  {
+    "name": "Mobile privacy motion and form guardrails",
+    "viewport": "mobile",
+    "covers": [
+      "mobile navigation",
+      "responsive forms",
+      "background animation control",
+      "analytics consent",
+      "POST /api/visit",
+      "unauthorized admin denial",
+      "required-field validation"
+    ],
+    "description": "Mobile visitors can navigate and control motion while invalid submissions and unauthorized admin access are rejected.",
+    "steps": [
+      "Open the mobile navigation and visit Services. Pause background animations with the header control. Navigate to About and confirm the preference remains.",
+      "Open Privacy preferences in the footer, allow analytics, and navigate Home then Products.",
+      "Request a service and try sending with missing name/contact, no consent and then an invalid contact value.",
+      "Verify a validation message and no successful request reference.",
+      "Open Admin while signed out and confirm no products, request contacts or dashboard data are displayed."
+    ],
+    "expected": "Navigation fits mobile, motion can be paused, analytics requires consent, invalid requests fail and private data is not exposed."
+  },
+  {
+    "name": "A backend failure never becomes a false success",
+    "viewport": "desktop",
+    "covers": [
+      "request backend failure",
+      "visible retry path",
+      "failed-write guardrail"
+    ],
+    "description": "A failed request save displays an error and keeps the form available.",
+    "qa_faults": [
+      {
+        "method": "POST",
+        "path": "/api/requests",
+        "status": 503,
+        "body_json": {
+          "error": "Service temporarily unavailable"
+        }
+      }
+    ],
+    "steps": [
+      "Open Get a quote and enter name QA Failure Buyer, contact qa-failure@example.com, quantity 1 and message A computer for design work.",
+      "Agree to be contacted and submit."
+    ],
+    "expected": "A visible error appears, no success reference is shown and the form remains available for retry."
+  }
+]
