@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="assets/readme/animated-banner.svg" width="100%" alt="Animated techsavy-website project banner" />
+</div>
+
 # TECHSAVY
 
 **Live website:** https://techsavy-ot9z7a.v2.appdeploy.ai/
