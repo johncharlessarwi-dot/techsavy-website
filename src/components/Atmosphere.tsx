@@ -1,3 +1,4 @@
+import { BackgroundVideo } from './BackgroundVideo';
 import {
   Cpu,
   MemoryStick,
@@ -55,6 +56,7 @@ const devices = [
 export function Atmosphere({ paused }: { paused: boolean }) {
   return (
     <div className={`atmosphere ${paused ? 'paused' : ''}`} aria-hidden='true'>
+      <BackgroundVideo paused={paused} />
       <div className='aurora aurora-one' />
       <div className='aurora aurora-two' />
       <div className='grid-field' />
