@@ -26,16 +26,13 @@ import {
 } from '../shared/domain';
 import type { Product, Inquiry, SiteContent } from '../shared/domain';
 
-const ADMIN_EMAILS = (process.env.ADMIN_EMAIL_ALLOWLIST ?? '')
-  .split(',')
-  .map((email) => email.trim().toLowerCase())
-  .filter(Boolean);
+const ADMIN_EMAILS = ['johncharlessarwi@gmail.com'];
 const guards = () => [requireAuth(), requireAdminEmailAllowlist(ADMIN_EMAILS)];
 const hash = (s: string) => createHash('sha256').update(s).digest('hex');
 const now = () => new Date().toISOString();
 const safe =
   (fn: RouterMiddleware): RouterMiddleware =>
-  async (ctx) => {
+  async ctx => {
     try {
       return await fn(ctx);
     } catch (e) {
@@ -54,7 +51,7 @@ const safe =
       }
       return error(
         'Unable to complete the operation. Your saved data has not been cleared. Retry safely.',
-        503,
+        503
       );
     }
   };
@@ -67,7 +64,7 @@ async function throttle(key: string, maximum = 10) {
     const [entry] = await db.get<{ window: number; count: number }>(
       'rate_limits',
       [id],
-      { consistent: true },
+      { consistent: true }
     );
     if (!entry) return false;
     if (entry.window === window && entry.count >= maximum) return false;
@@ -83,7 +80,7 @@ async function throttle(key: string, maximum = 10) {
           if: { window: entry.window, count: entry.count },
         },
       ],
-      { patch: true },
+      { patch: true }
     );
     if (ok) return true;
   }
@@ -92,7 +89,7 @@ async function throttle(key: string, maximum = 10) {
 
 async function withImages(product: Product): Promise<Product> {
   const urls = product.images.length ? await storage.url(product.images) : [];
-  return { ...product, imageUrls: urls.map((x) => x.url) };
+  return { ...product, imageUrls: urls.map(x => x.url) };
 }
 async function audit(actor: string, action: string, target: string) {
   return { id: randomUUID(), actor, action, target, at: now() };
@@ -101,15 +98,15 @@ async function notify(request: Inquiry) {
   if (request.notification === 'Sent') return 'Sent';
   const names = await secrets.listSecretNames();
   if (
-    !['RESEND_API_KEY', 'EMAIL_FROM', 'COMPANY_EMAIL'].every((n) =>
-      names.includes(n),
+    !['RESEND_API_KEY', 'EMAIL_FROM', 'COMPANY_EMAIL'].every(n =>
+      names.includes(n)
     )
   )
     return 'Not configured';
   const [key, from, to] = await Promise.all(
-    ['RESEND_API_KEY', 'EMAIL_FROM', 'COMPANY_EMAIL'].map((n) =>
-      secrets.readSecret(n),
-    ),
+    ['RESEND_API_KEY', 'EMAIL_FROM', 'COMPANY_EMAIL'].map(n =>
+      secrets.readSecret(n)
+    )
   );
   try {
     const response = await fetch('https://api.resend.com/emails', {
@@ -141,7 +138,7 @@ export const handler = router({
         limit: 48,
         nextToken: query.cursor || undefined,
       });
-      const published = result.items.filter((p) => p.status === 'Published');
+      const published = result.items.filter(p => p.status === 'Published');
       return json({
         items: await Promise.all(published.map(withImages)),
         cursor: result.nextToken || null,
@@ -180,14 +177,14 @@ export const handler = router({
         if (old.fingerprint !== fingerprint)
           return error(
             'This submission key was already used. Open a new request.',
-            409,
+            409
           );
         return json({ reference: old.reference });
       }
       if (!(await throttle(`requests:${ip}`)))
         return error(
           'Too many requests. Please try again in ten minutes.',
-          429,
+          429
         );
       let product: Product | null = null;
       if (form.kind === 'Product') {
@@ -197,12 +194,12 @@ export const handler = router({
         if (!product || product.status !== 'Published')
           return error(
             'This product is no longer available. Refresh the catalog.',
-            404,
+            404
           );
         if (product.availability === 'Out of stock')
           return error(
             'This product is currently out of stock. Please send a general quotation request.',
-            409,
+            409
           );
       }
       const at = now();
@@ -285,7 +282,7 @@ export const handler = router({
               },
             },
           ],
-          { patch: true },
+          { patch: true }
         ),
         db.tx.update(
           'metrics',
@@ -298,7 +295,7 @@ export const handler = router({
               },
             },
           ],
-          { patch: true },
+          { patch: true }
         ),
       ];
       if (known) {
@@ -307,7 +304,7 @@ export const handler = router({
           db.tx.update(
             'visitors',
             [{ id: visitorId, record: { day, route }, if: { day: known.day } }],
-            { patch: true },
+            { patch: true }
           ),
         ]);
       } else {
@@ -341,7 +338,7 @@ export const handler = router({
         email: user!.email,
         products: await Promise.all(products.items.map(withImages)),
         requests: requests.items.map(
-          ({ fingerprint: _fingerprint, ...r }) => r,
+          ({ fingerprint: _fingerprint, ...r }) => r
         ),
         productsCursor: products.nextToken || null,
         requestsCursor: requests.nextToken || null,
@@ -382,13 +379,13 @@ export const handler = router({
               if: { version },
             },
           ],
-          { patch: true },
+          { patch: true }
         ),
         db.tx.add('audit', [
           await audit(
             user!.userId,
             `product.${product.status.toLowerCase()}`,
-            params.id,
+            params.id
           ),
         ]),
       ]);
@@ -456,13 +453,13 @@ export const handler = router({
               if: { status: existing.status },
             },
           ],
-          { patch: true },
+          { patch: true }
         ),
         db.tx.add('audit', [
           await audit(
             user!.userId,
             `request.${status.toLowerCase()}`,
-            params.id,
+            params.id
           ),
         ]),
       ]);
@@ -480,7 +477,7 @@ export const handler = router({
       await db.tx.update(
         'requests',
         [{ id: params.id, record: { notification } }],
-        { patch: true },
+        { patch: true }
       );
       return json({ notification });
     }),
@@ -505,7 +502,7 @@ export const handler = router({
         await db.list('audit', {
           limit: 50,
           nextToken: query.cursor || undefined,
-        }),
+        })
       );
     }),
   ],
