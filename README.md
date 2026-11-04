@@ -77,3 +77,18 @@ No existing TECHSAVY Vercel project was found when work began. This app's backen
 ## Deployment status
 
 AppDeploy reported ready on 4 November 2026, with no frontend, backend or network errors in its QA snapshot. This is not a claim that every acceptance workflow passed: owner-authenticated product management and email delivery still need verification. The catalog starts empty; the owner must add actual products and company contact details through Admin. Email credentials remain unconfigured.
+
+---
+
+<!-- Developer contact links -->
+<div align="center">
+  <h3>Connect with the developer</h3>
+  <a href="https://wa.me/255698170989?text=Habari%20John%2C%20nimeona%20project%20yako%20GitHub.">
+    <img src="https://img.shields.io/badge/WhatsApp-Chat%20with%20John-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp John Charles Sarwi" />
+  </a>
+  <a href="https://john-charles-sarwi-portfolio.vercel.app/">
+    <img src="https://img.shields.io/badge/Portfolio-View%20Developer%20Profile-146C94?style=for-the-badge&logo=vercel&logoColor=white" alt="John Charles Sarwi developer portfolio" />
+  </a>
+  <p><strong>Developer:</strong> <a href="https://john-charles-sarwi-portfolio.vercel.app/">John Charles Sarwi</a> · Tanzania</p>
+</div>
+<!-- End developer contact links -->
