@@ -1,5 +1,9 @@
 # TECHSAVY
 
+**Live website:** https://techsavy-ot9z7a.v2.appdeploy.ai/
+
+**Administrator:** https://techsavy-ot9z7a.v2.appdeploy.ai/#admin
+
 Computer sales, equipment supply and IT services, with a responsive animated storefront and a protected administration workspace.
 
 ## Implemented
@@ -30,9 +34,9 @@ The local preview adapter is **design-only**. It returns an empty product catalo
 
 ## AppDeploy runtime
 
-Deploy using `frontend+backend` with the `react-vite` template. AppDeploy injects `@appdeploy/client` and `@appdeploy/sdk`; do not add those packages to npm dependencies. `backend/index.ts` is the entry point. `types/appdeploy-contract.d.ts` is a local type-check contract copied from the documented SDK, not an implementation.
+Deploy using `frontend+backend` with the `react-vite` template. AppDeploy injects `@appdeploy/client` and `@appdeploy/sdk`; do not add those packages to npm dependencies. `backend/index.ts` is the entry point. `types/appdeploy-contract.d.ts` is a local type-check contract copied from the documented SDK, not an implementation. Exclude it from AppDeploy source uploads; the platform provides its own SDK types.
 
-Set `ADMIN_EMAIL_ALLOWLIST` through AppDeploy secure configuration to the approved owner email. It is read only by the server and defaults to an empty allowlist, which fails closed until configured. No owner email, password or secret is committed publicly.
+Administrator access uses the AppDeploy SDK's `requireAuth()` and `requireAdminEmailAllowlist(ADMIN_EMAILS)` middleware. The explicit owner allowlist is server-side in `backend/index.ts`. Signing in with another account does not grant administrator access. Passwords and API keys are not committed.
 
 Managed identity uses the provider's sign-in/recovery mechanisms, rather than app-owned password storage. Owner-session end-to-end QA requires signing in with the approved account.
 
@@ -65,3 +69,7 @@ No existing TECHSAVY Vercel project was found when work began. This app's backen
 ## Verification
 
 `tests/domain.test.ts` tests validation and legal transitions. `tests/tests.json` defines five end-to-end acceptance workflows, including genuine persistence and authorization checks. Reports must distinguish passing automated checks, blocked owner-authenticated tests and unconfigured external services.
+
+## Deployment status
+
+AppDeploy reported ready on 4 November 2026, with no frontend, backend or network errors in its QA snapshot. This is not a claim that every acceptance workflow passed: owner-authenticated product management and email delivery still need verification. The catalog starts empty; the owner must add actual products and company contact details through Admin. Email credentials remain unconfigured.
