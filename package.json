@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.check.json",
-    "test": "node --experimental-strip-types --test tests/domain.test.ts",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
     "preview:local": "TECHSAVY_LOCAL_PREVIEW=1 vite --host 0.0.0.0"
   },
   "dependencies": {
