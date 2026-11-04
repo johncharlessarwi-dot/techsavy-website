@@ -92,7 +92,8 @@
       "required-field validation",
       "golden yellow and black theme",
       "animated laptop drone Ethernet desktop camera server backgrounds on all routes",
-      "reduced-motion preference"
+      "reduced-motion preference",
+      "unconfigured video playlist fallback"
     ],
     "description": "Mobile visitors can navigate and control motion while invalid submissions and unauthorized admin access are rejected.",
     "steps": [
@@ -101,7 +102,8 @@
       "Open Privacy preferences in the footer, allow analytics, and navigate Home then Products.",
       "Request a service and try sending with missing name/contact, no consent and then an invalid contact value.",
       "Verify a validation message and no successful request reference.",
-      "Open Admin while signed out and confirm no products, request contacts or dashboard data are displayed."
+      "Open Admin while signed out and confirm no products, request contacts or dashboard data are displayed.",
+      "With the video playlist still unconfigured, confirm the gold device animation remains visible on Home and Contact, with working navigation and forms. Do not claim real video playback or the twelve-device video cycle passed before footage is supplied."
     ],
     "expected": "Navigation fits mobile, motion can be paused, analytics requires consent, invalid requests fail and private data is not exposed. The gold-and-black theme and device background remain consistent across routes; decorative layers do not capture clicks, paused motion persists, and reduced motion stops all decorative animations."
   },
