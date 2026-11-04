@@ -34,7 +34,10 @@
       "GET /api/products/:id",
       "product filtering",
       "public product detail",
-      "product request"
+      "product request",
+      "browser favourites persistence",
+      "product comparison up to three products",
+      "price and alphabetical sorting"
     ],
     "description": "The approved administrator can manage a product and visitors only see published products.",
     "steps": [
@@ -43,6 +46,8 @@
       "Confirm the product persists after refreshing Admin and is absent from the public catalog.",
       "Edit it to Published, save, and open Products. Search QA Office Laptop, filter Laptops, and open the product detail.",
       "Submit a product request with name QA Product Buyer, contact qa-product@example.com, quantity 1 and consent. Confirm a TS- reference.",
+      "With the published QA Office Laptop available, save it as a favourite, reload Products and enable Favourites only. Confirm it remains saved. Disable the filter and select Compare; verify its name, price, condition, availability, specifications and warranty match its details. Remove it and confirm the comparison disappears.",
+      "As the approved owner, create three more published products with real PNG images: QA Desktop priced 900000, QA Mouse priced 25000 and QA Router with no price. On Products, compare three products and confirm the fourth Compare button is disabled until one is removed. Verify price sorting in both directions leaves QA Router last, and Name A\u2013Z orders the loaded results alphabetically. Clear the comparison and unsave the laptop.",
       "Return to Admin, replace the image by uploading another PNG and removing the first from the product. Save and refresh to verify the new image persists.",
       "Archive the product and verify it disappears from the public catalog. Restore it to Published and verify it returns."
     ],
