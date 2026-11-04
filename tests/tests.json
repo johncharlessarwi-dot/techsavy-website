@@ -89,17 +89,21 @@
       "analytics consent",
       "POST /api/visit",
       "unauthorized admin denial",
-      "required-field validation"
+      "required-field validation",
+      "golden yellow and black theme",
+      "animated laptop drone Ethernet desktop camera server backgrounds on all routes",
+      "reduced-motion preference"
     ],
     "description": "Mobile visitors can navigate and control motion while invalid submissions and unauthorized admin access are rejected.",
     "steps": [
-      "Open the mobile navigation and visit Services. Pause background animations with the header control. Navigate to About and confirm the preference remains.",
+      "Open the mobile menu and visit Home, Products, Services, About, Contact and signed-out Admin. Confirm every page uses golden yellow accents on a black background with decorative computer-device illustrations behind readable content, with no horizontal overflow or blocked controls.",
+      "Use the header motion control to pause the background devices and drone rotors. Navigate to About and reload; confirm the paused setting remains. Resume motion, then enable the browser reduced-motion preference and confirm decorative movement stops.",
       "Open Privacy preferences in the footer, allow analytics, and navigate Home then Products.",
       "Request a service and try sending with missing name/contact, no consent and then an invalid contact value.",
       "Verify a validation message and no successful request reference.",
       "Open Admin while signed out and confirm no products, request contacts or dashboard data are displayed."
     ],
-    "expected": "Navigation fits mobile, motion can be paused, analytics requires consent, invalid requests fail and private data is not exposed."
+    "expected": "Navigation fits mobile, motion can be paused, analytics requires consent, invalid requests fail and private data is not exposed. The gold-and-black theme and device background remain consistent across routes; decorative layers do not capture clicks, paused motion persists, and reduced motion stops all decorative animations."
   },
   {
     "name": "A backend failure never becomes a false success",
