@@ -34,6 +34,12 @@ import type { Product, SiteContent } from '../shared/domain';
 import { Atmosphere, DeviceScene } from './components/Atmosphere';
 import { RequestForm, errorMessage } from './components/RequestForm';
 import { Admin } from './components/Admin';
+import {
+  useCatalogChoices,
+  ProductComparison,
+} from './components/CatalogChoices';
+import { sortCatalog } from '../shared/catalog';
+import type { CatalogSort } from '../shared/catalog';
 
 const icons = [Laptop, Monitor, Monitor, Headphones, Network, HardDrive];
 const getRoute = () => window.location.hash.slice(1) || 'home';
@@ -51,6 +57,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [query, setQuery] = useState('');
+  const [sort, setSort] = useState<CatalogSort>('featured');
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const choices = useCatalogChoices();
   const [category, setCategory] = useState('All');
   const [availability, setAvailability] = useState('All');
   const [selected, setSelected] = useState<Product | null>(null);
@@ -140,54 +149,85 @@ export default function App() {
       previous?.focus();
     };
   }, [request]);
-  const filtered = products.filter(
-    (p) =>
-      (category === 'All' || p.category === category) &&
-      (availability === 'All' || p.availability === availability) &&
-      `${p.name} ${p.brand} ${p.model}`
-        .toLowerCase()
-        .includes(query.toLowerCase()),
+  const filtered = sortCatalog(
+    products.filter(
+      (p) =>
+        (!favoritesOnly || choices.favorites.includes(p.id)) &&
+        (category === 'All' || p.category === category) &&
+        (availability === 'All' || p.availability === availability) &&
+        `${p.name} ${p.brand} ${p.model}`
+          .toLowerCase()
+          .includes(query.toLowerCase()),
+    ),
+    sort,
   );
   const productCards = (items: Product[]) => (
     <div className='product-grid'>
       {items.map((p) => (
-        <button
-          className='product-card'
-          key={p.id}
-          onClick={async () => {
-            window.location.hash = 'products';
-            setLoadError('');
-            try {
-              const result = await api.get(
-                `/api/products/${encodeURIComponent(p.id)}`,
-              );
-              setSelected(result.data);
-            } catch (e) {
-              setLoadError(errorMessage(e));
-            }
-          }}
-        >
-          <div className='product-image'>
-            {p.imageUrls?.[0] ? (
-              <img src={p.imageUrls[0]} alt={p.name} loading='lazy' />
-            ) : (
-              <Laptop size={64} />
-            )}
-            <span className='condition'>{p.condition}</span>
-          </div>
-          <div className='product-info'>
-            <span className='eyebrow'>{p.category}</span>
-            <h3>{p.name}</h3>
-            <p>
-              {p.brand} {p.model}
-            </p>
-            <div className='split'>
-              <b>{money(p.price)}</b>
-              <ArrowUpRight size={20} />
+        <article className='product-card-wrap' key={p.id}>
+          <button
+            className='product-card'
+            key={p.id}
+            onClick={async () => {
+              window.location.hash = 'products';
+              setLoadError('');
+              try {
+                const result = await api.get(
+                  `/api/products/${encodeURIComponent(p.id)}`,
+                );
+                setSelected(result.data);
+              } catch (e) {
+                setLoadError(errorMessage(e));
+              }
+            }}
+          >
+            <div className='product-image'>
+              {p.imageUrls?.[0] ? (
+                <img src={p.imageUrls[0]} alt={p.name} loading='lazy' />
+              ) : (
+                <Laptop size={64} />
+              )}
+              <span className='condition'>{p.condition}</span>
             </div>
-            <small>{p.availability}</small>
+            <div className='product-info'>
+              <span className='eyebrow'>{p.category}</span>
+              <h3>{p.name}</h3>
+              <p>
+                {p.brand} {p.model}
+              </p>
+              <div className='split'>
+                <b>{money(p.price)}</b>
+                <ArrowUpRight size={20} />
+              </div>
+              <small>{p.availability}</small>
+            </div>
+          </button>
+          <div className='product-choice-actions'>
+            <button
+              aria-pressed={choices.favorites.includes(p.id)}
+              aria-label={`${choices.favorites.includes(p.id) ? 'Unsave' : 'Save'} ${p.name}`}
+              onClick={() => choices.toggleFavorite(p.id)}
+            >
+              {choices.favorites.includes(p.id) ? 'Saved ♥' : 'Save ♡'}
+            </button>
+            <button
+              aria-pressed={choices.compare.includes(p.id)}
+              disabled={
+                !choices.compare.includes(p.id) && choices.compare.length >= 3
+              }
+              aria-label={`Compare ${p.name}`}
+              onClick={() => {
+                choices.toggleCompare(p.id);
+                setSelected(null);
+                window.location.hash = 'products';
+              }}
+            >
+              {choices.compare.includes(p.id)
+                ? 'Selected to compare'
+                : 'Compare'}
+            </button>
           </div>
-        </button>
+        </article>
       ))}
     </div>
   );
@@ -516,6 +556,51 @@ export default function App() {
                     <option>Out of stock</option>
                   </select>
                 </div>
+                <div className='catalog-preferences'>
+                  <label>
+                    Sort products
+                    <select
+                      value={sort}
+                      onChange={(e) => setSort(e.target.value as CatalogSort)}
+                    >
+                      <option value='featured'>Featured first</option>
+                      <option value='price-low'>Price: low to high</option>
+                      <option value='price-high'>Price: high to low</option>
+                      <option value='name'>Name: A–Z</option>
+                    </select>
+                  </label>
+                  <label className='favorites-filter'>
+                    <input
+                      type='checkbox'
+                      checked={favoritesOnly}
+                      onChange={(e) => setFavoritesOnly(e.target.checked)}
+                    />{' '}
+                    Favourites only ({choices.favorites.length} saved)
+                  </label>
+                </div>
+                <p className='catalog-note'>
+                  Favourites are saved in this browser. Filters, sorting and
+                  comparison use loaded products; load more to include the next
+                  catalog page.
+                </p>
+                <p className='catalog-note' role='status'>
+                  {choices.notice ||
+                    `${filtered.length} matching loaded products · ${choices.compare.length} selected for comparison`}
+                </p>
+                <ProductComparison
+                  products={products.filter((p) =>
+                    choices.compare.includes(p.id),
+                  )}
+                  onRemove={choices.toggleCompare}
+                  onClear={choices.clearCompare}
+                  onRequest={(p) =>
+                    setRequest({
+                      kind: 'Product',
+                      productId: p.id,
+                      productName: p.name,
+                    })
+                  }
+                />
                 {loadError && (
                   <div className='error' role='alert'>
                     {loadError}
@@ -555,6 +640,7 @@ export default function App() {
                             setQuery('');
                             setCategory('All');
                             setAvailability('All');
+                            setFavoritesOnly(false);
                           }}
                         >
                           Clear filters
