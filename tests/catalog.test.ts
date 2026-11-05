@@ -32,3 +32,8 @@ test('favourites tolerate corrupt storage, reject invalid IDs and cap saved entr
     200,
   );
 });
+
+test('favourites reject oversized local storage data and whitespace-only IDs', () => {
+  assert.deepEqual(readFavoriteIds(' '.repeat(65537)), []);
+  assert.deepEqual(readFavoriteIds(JSON.stringify([' ', '\t', 'product-1'])), ['product-1']);
+});

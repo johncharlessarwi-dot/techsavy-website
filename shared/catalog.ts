@@ -11,6 +11,8 @@ export function sortCatalog<
   });
 }
 export function readFavoriteIds(raw: string | null): string[] {
+  // Local storage can be modified by extensions or pasted user data.
+  if (raw !== null && (typeof raw !== 'string' || raw.length > 65536)) return [];
   try {
     const value: unknown = JSON.parse(raw || '[]');
     return Array.isArray(value)
@@ -18,7 +20,7 @@ export function readFavoriteIds(raw: string | null): string[] {
           ...new Set(
             value.filter(
               (id): id is string =>
-                typeof id === 'string' && id.length > 0 && id.length <= 100,
+                typeof id === 'string' && id.trim().length > 0 && id.length <= 100,
             ),
           ),
         ].slice(0, 200)
