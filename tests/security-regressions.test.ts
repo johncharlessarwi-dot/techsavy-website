@@ -102,3 +102,7 @@ test("reject infinite prices", () => {
 test("reject NaN prices", () => {
   assert.throws(() => validateProduct({ ...product, price: NaN }));
 });
+
+test("reject boolean quotation quantities", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, quantity: true }));
+});
