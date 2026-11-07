@@ -50,3 +50,7 @@ test("reject null bytes in text values", () => {
 test("reject escape characters in text", () => {
   assert.throws(() => text('buyer\u001bspoof', 100));
 });
+
+test("allow ordinary multiline text fields", () => {
+  assert.equal(text('line one\nline two', 100), 'line one\nline two');
+});
