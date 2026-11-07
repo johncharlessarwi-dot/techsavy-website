@@ -26,3 +26,7 @@ test("reject Date objects as request payloads", () => {
 test("reject Maps as request payloads", () => {
   assert.throws(() => record(new Map()));
 });
+
+test("reject Sets as request payloads", () => {
+  assert.throws(() => record(new Set()));
+});
