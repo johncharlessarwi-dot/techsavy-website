@@ -94,3 +94,7 @@ test("accept zero price for drafts", () => {
 test("reject negative prices", () => {
   assert.throws(() => validateProduct({ ...product, price: -1 }));
 });
+
+test("reject infinite prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: Infinity }));
+});
