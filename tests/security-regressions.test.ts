@@ -54,3 +54,7 @@ test("reject escape characters in text", () => {
 test("allow ordinary multiline text fields", () => {
   assert.equal(text('line one\nline two', 100), 'line one\nline two');
 });
+
+test("reject boolean product prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: true }));
+});
