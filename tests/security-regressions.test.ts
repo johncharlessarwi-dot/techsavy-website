@@ -134,3 +134,7 @@ test("reject fractional numerical quantity", () => {
 test("reject excessive quantity", () => {
   assert.throws(() => validateInquiry({ ...inquiry, quantity: 10001 }));
 });
+
+test("reject forged Unicode contact controls", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, contact: '+255700000000\nX' }));
+});
