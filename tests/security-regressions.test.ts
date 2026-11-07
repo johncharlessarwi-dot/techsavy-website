@@ -158,3 +158,7 @@ test("deduplicate favorite product IDs", () => {
 test("ignore favorites saved as nonarrays", () => {
   assert.deepEqual(readFavoriteIds('{"ids":["a"]}'), []);
 });
+
+test("prevent reopening completed requests", () => {
+  assert.equal(canTransition('Completed', 'New'), false);
+});
