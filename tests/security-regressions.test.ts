@@ -114,3 +114,7 @@ test("reject array quotation quantities", () => {
 test("reject object quotation quantities", () => {
   assert.throws(() => validateInquiry({ ...inquiry, quantity: { value: 2 } }));
 });
+
+test("reject scientific notation quotation quantities", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, quantity: '1e2' }));
+});
