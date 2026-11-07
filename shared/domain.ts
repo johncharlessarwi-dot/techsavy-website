@@ -158,6 +158,7 @@ export function validateInquiry(input: unknown) {
   )
     throw new ValidationError('Enter a valid email or phone number.');
   const kind = choice(b.kind, ['Product', 'Quotation', 'Service', 'Contact']);
+  if (typeof b.quantity === 'boolean') throw new ValidationError('Quantity must be a whole number.');
   const quantity = Number(b.quantity ?? 1);
   if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10000)
     throw new ValidationError('Quantity must be between 1 and 10,000.');
