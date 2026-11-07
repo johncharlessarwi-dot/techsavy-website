@@ -42,3 +42,7 @@ test("reject prototype-less request payloads", () => {
 test("accept plain request payload objects", () => {
   assert.deepEqual(record({ hello: 'world' }), { hello: 'world' });
 });
+
+test("reject null bytes in text values", () => {
+  assert.throws(() => text('buyer\u0000spoof', 100));
+});
