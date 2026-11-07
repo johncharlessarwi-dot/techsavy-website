@@ -142,3 +142,7 @@ test("reject forged Unicode contact controls", () => {
 test("reject malformed public token", () => {
   assert.throws(() => validateInquiry({ ...inquiry, token: 'not-a-uuid' }));
 });
+
+test("reject missing quotation consent", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, consent: false }));
+});
