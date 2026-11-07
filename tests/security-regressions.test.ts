@@ -90,3 +90,7 @@ test("accept binary float near decimal cent", () => {
 test("accept zero price for drafts", () => {
   assert.equal(validateProduct({ ...product, price: 0 }).price, 0);
 });
+
+test("reject negative prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: -1 }));
+});
