@@ -160,6 +160,7 @@ export function validateInquiry(input: unknown) {
   const kind = choice(b.kind, ['Product', 'Quotation', 'Service', 'Contact']);
   if (typeof b.quantity === 'boolean') throw new ValidationError('Quantity must be a whole number.');
   if (b.quantity !== undefined && typeof b.quantity !== 'number' && typeof b.quantity !== 'string') throw new ValidationError('Quantity must be a whole number.');
+  if (typeof b.quantity === 'string' && !/^\d+$/.test(b.quantity)) throw new ValidationError('Quantity must contain decimal digits only.');
   const quantity = Number(b.quantity ?? 1);
   if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10000)
     throw new ValidationError('Quantity must be between 1 and 10,000.');
