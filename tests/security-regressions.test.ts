@@ -18,3 +18,7 @@ const product = {
   availability: 'Available', status: 'Draft', images: [],
 };
 
+
+test("reject Date objects as request payloads", () => {
+  assert.throws(() => record(new Date()));
+});
