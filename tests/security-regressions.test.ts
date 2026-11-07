@@ -34,3 +34,7 @@ test("reject Sets as request payloads", () => {
 test("reject arrays as request payloads", () => {
   assert.throws(() => record([]));
 });
+
+test("reject prototype-less request payloads", () => {
+  assert.throws(() => record(Object.create(null)));
+});
