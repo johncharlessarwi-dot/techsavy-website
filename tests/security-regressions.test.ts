@@ -98,3 +98,7 @@ test("reject negative prices", () => {
 test("reject infinite prices", () => {
   assert.throws(() => validateProduct({ ...product, price: Infinity }));
 });
+
+test("reject NaN prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: NaN }));
+});
