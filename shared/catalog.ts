@@ -20,7 +20,7 @@ export function readFavoriteIds(raw: string | null): string[] {
           ...new Set(
             value.filter(
               (id): id is string =>
-                typeof id === 'string' && id.trim().length > 0 && id.length <= 100,
+                typeof id === 'string' && id.trim().length > 0 && id.length <= 100 && !/[\u0000-\u001f\u007f]/.test(id),
             ),
           ),
         ].slice(0, 200)
