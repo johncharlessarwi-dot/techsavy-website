@@ -104,6 +104,7 @@ export function choice(value: unknown, values: string[]): string {
 }
 export function validateProduct(input: unknown) {
   const b = record(input);
+  if (typeof b.price === 'boolean') throw new ValidationError('Price must be a valid amount.');
   const price = b.price === null || b.price === '' ? null : Number(b.price);
   if (price !== null && (!Number.isFinite(price) || price < 0 || price > 1e10))
     throw new ValidationError('Price must be a valid amount.');
