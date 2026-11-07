@@ -46,3 +46,7 @@ test("accept plain request payload objects", () => {
 test("reject null bytes in text values", () => {
   assert.throws(() => text('buyer\u0000spoof', 100));
 });
+
+test("reject escape characters in text", () => {
+  assert.throws(() => text('buyer\u001bspoof', 100));
+});
