@@ -150,3 +150,7 @@ test("reject missing quotation consent", () => {
 test("reject control characters in favorites IDs", () => {
   assert.deepEqual(readFavoriteIds(JSON.stringify(['safe-id', 'bad\nentry'])), ['safe-id']);
 });
+
+test("deduplicate favorite product IDs", () => {
+  assert.deepEqual(readFavoriteIds(JSON.stringify(['a', 'a', 'b'])), ['a', 'b']);
+});
