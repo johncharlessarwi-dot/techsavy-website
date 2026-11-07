@@ -86,3 +86,7 @@ test("accept valid fractional cent precision", () => {
 test("accept binary float near decimal cent", () => {
   assert.equal(validateProduct({ ...product, price: 0.29 }).price, 0.29);
 });
+
+test("accept zero price for drafts", () => {
+  assert.equal(validateProduct({ ...product, price: 0 }).price, 0);
+});
