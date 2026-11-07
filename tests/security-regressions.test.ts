@@ -154,3 +154,7 @@ test("reject control characters in favorites IDs", () => {
 test("deduplicate favorite product IDs", () => {
   assert.deepEqual(readFavoriteIds(JSON.stringify(['a', 'a', 'b'])), ['a', 'b']);
 });
+
+test("ignore favorites saved as nonarrays", () => {
+  assert.deepEqual(readFavoriteIds('{"ids":["a"]}'), []);
+});
