@@ -130,3 +130,7 @@ test("accept plain decimal digit quantity", () => {
 test("reject fractional numerical quantity", () => {
   assert.throws(() => validateInquiry({ ...inquiry, quantity: 2.5 }));
 });
+
+test("reject excessive quantity", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, quantity: 10001 }));
+});
