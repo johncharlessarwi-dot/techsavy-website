@@ -85,7 +85,7 @@ export const defaultContent: SiteContent = {
 };
 export class ValidationError extends Error {}
 export function record(input: unknown): Record<string, unknown> {
-  if (!input || typeof input !== 'object' || Array.isArray(input))
+  if (!input || typeof input !== 'object' || Array.isArray(input) || Object.getPrototypeOf(input) !== Object.prototype)
     throw new ValidationError('Invalid submission.');
   return input as Record<string, unknown>;
 }
