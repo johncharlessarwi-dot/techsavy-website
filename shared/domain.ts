@@ -93,7 +93,7 @@ export function text(value: unknown, max: number, required = false): string {
   if (value !== undefined && typeof value !== 'string')
     throw new ValidationError('Expected text.');
   const result = ((value as string | undefined) ?? '').trim();
-  if (result.length > max || (required && !result))
+  if (result.includes('\0') || result.length > max || (required && !result))
     throw new ValidationError('Check required fields and text length.');
   return result;
 }
