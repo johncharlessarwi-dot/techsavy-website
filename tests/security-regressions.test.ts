@@ -30,3 +30,7 @@ test("reject Maps as request payloads", () => {
 test("reject Sets as request payloads", () => {
   assert.throws(() => record(new Set()));
 });
+
+test("reject arrays as request payloads", () => {
+  assert.throws(() => record([]));
+});
