@@ -152,6 +152,7 @@ export function validateInquiry(input: unknown) {
       'Please agree to be contacted about this request.',
     );
   const contact = text(b.contact, 150, true);
+  if (/[\u0000-\u001f\u007f]/.test(contact)) throw new ValidationError('Invalid contact details.');
   if (
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) &&
     !/^\+?[\d ()-]{9,20}$/.test(contact)
