@@ -62,3 +62,7 @@ test("reject boolean product prices", () => {
 test("reject array product prices", () => {
   assert.throws(() => validateProduct({ ...product, price: [100] }));
 });
+
+test("reject object product prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: { amount: 100 } }));
+});
