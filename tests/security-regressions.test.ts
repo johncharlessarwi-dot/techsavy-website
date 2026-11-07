@@ -146,3 +146,7 @@ test("reject malformed public token", () => {
 test("reject missing quotation consent", () => {
   assert.throws(() => validateInquiry({ ...inquiry, consent: false }));
 });
+
+test("reject control characters in favorites IDs", () => {
+  assert.deepEqual(readFavoriteIds(JSON.stringify(['safe-id', 'bad\nentry'])), ['safe-id']);
+});
