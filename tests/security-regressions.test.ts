@@ -122,3 +122,7 @@ test("reject scientific notation quotation quantities", () => {
 test("reject decimal notation quotation quantities", () => {
   assert.throws(() => validateInquiry({ ...inquiry, quantity: '2.0' }));
 });
+
+test("accept plain decimal digit quantity", () => {
+  assert.equal(validateInquiry({ ...inquiry, quantity: '2' }).quantity, 2);
+});
