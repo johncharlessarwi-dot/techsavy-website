@@ -126,3 +126,7 @@ test("reject decimal notation quotation quantities", () => {
 test("accept plain decimal digit quantity", () => {
   assert.equal(validateInquiry({ ...inquiry, quantity: '2' }).quantity, 2);
 });
+
+test("reject fractional numerical quantity", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, quantity: 2.5 }));
+});
