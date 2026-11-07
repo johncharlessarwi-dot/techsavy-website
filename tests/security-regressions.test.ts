@@ -38,3 +38,7 @@ test("reject arrays as request payloads", () => {
 test("reject prototype-less request payloads", () => {
   assert.throws(() => record(Object.create(null)));
 });
+
+test("accept plain request payload objects", () => {
+  assert.deepEqual(record({ hello: 'world' }), { hello: 'world' });
+});
