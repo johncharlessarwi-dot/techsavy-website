@@ -74,3 +74,7 @@ test("reject exponent product prices", () => {
 test("reject hex product prices", () => {
   assert.throws(() => validateProduct({ ...product, price: '0xFF' }));
 });
+
+test("reject fractional cent product prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: '10.001' }));
+});
