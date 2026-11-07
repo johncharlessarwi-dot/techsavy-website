@@ -118,3 +118,7 @@ test("reject object quotation quantities", () => {
 test("reject scientific notation quotation quantities", () => {
   assert.throws(() => validateInquiry({ ...inquiry, quantity: '1e2' }));
 });
+
+test("reject decimal notation quotation quantities", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, quantity: '2.0' }));
+});
