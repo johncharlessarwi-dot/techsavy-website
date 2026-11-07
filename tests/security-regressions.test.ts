@@ -138,3 +138,7 @@ test("reject excessive quantity", () => {
 test("reject forged Unicode contact controls", () => {
   assert.throws(() => validateInquiry({ ...inquiry, contact: '+255700000000\nX' }));
 });
+
+test("reject malformed public token", () => {
+  assert.throws(() => validateInquiry({ ...inquiry, token: 'not-a-uuid' }));
+});
