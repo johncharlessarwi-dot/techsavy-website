@@ -78,3 +78,7 @@ test("reject hex product prices", () => {
 test("reject fractional cent product prices", () => {
   assert.throws(() => validateProduct({ ...product, price: '10.001' }));
 });
+
+test("accept valid fractional cent precision", () => {
+  assert.equal(validateProduct({ ...product, price: '10.25' }).price, 10.25);
+});
