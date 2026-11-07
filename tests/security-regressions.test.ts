@@ -70,3 +70,7 @@ test("reject object product prices", () => {
 test("reject exponent product prices", () => {
   assert.throws(() => validateProduct({ ...product, price: '1e5' }));
 });
+
+test("reject hex product prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: '0xFF' }));
+});
