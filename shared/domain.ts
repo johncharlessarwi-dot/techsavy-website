@@ -108,7 +108,7 @@ export function validateProduct(input: unknown) {
   if (typeof b.price === 'boolean') throw new ValidationError('Price must be a valid amount.');
   if (typeof b.price === 'string' && b.price !== '' && !/^\d+(?:\.\d{1,2})?$/.test(b.price)) throw new ValidationError('Price must be a plain decimal amount.');
   const price = b.price === null || b.price === '' ? null : Number(b.price);
-  if (price !== null && (!Number.isFinite(price) || price < 0 || price > 1e10))
+  if (price !== null && (!Number.isFinite(price) || price < 0 || price > 1e10 || Math.round(price * 100) !== price * 100))
     throw new ValidationError('Price must be a valid amount.');
   const images = Array.isArray(b.images) ? b.images : [];
   if (
