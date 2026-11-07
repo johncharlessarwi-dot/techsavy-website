@@ -22,3 +22,7 @@ const product = {
 test("reject Date objects as request payloads", () => {
   assert.throws(() => record(new Date()));
 });
+
+test("reject Maps as request payloads", () => {
+  assert.throws(() => record(new Map()));
+});
