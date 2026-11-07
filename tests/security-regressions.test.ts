@@ -58,3 +58,7 @@ test("allow ordinary multiline text fields", () => {
 test("reject boolean product prices", () => {
   assert.throws(() => validateProduct({ ...product, price: true }));
 });
+
+test("reject array product prices", () => {
+  assert.throws(() => validateProduct({ ...product, price: [100] }));
+});
