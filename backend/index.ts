@@ -12,6 +12,7 @@ import {
 } from '@appdeploy/sdk';
 import type { RouterMiddleware } from '@appdeploy/sdk';
 import { createHash, randomUUID } from 'node:crypto';
+import { isPlausibleWebP } from '../shared/image-validation';
 import {
   defaultContent,
   validateProduct,
@@ -410,13 +411,7 @@ export const handler = router({
               .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
           : type === 'image/jpeg'
             ? bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255
-            : bytes.toString('ascii', 0, 4) === 'RIFF' &&
-              bytes.toString('ascii', 8, 12) === 'WEBP' &&
-              bytes.length >= 20 &&
-              bytes.readUInt32LE(4) === bytes.length - 8 &&
-              ['VP8 ', 'VP8L', 'VP8X'].includes(
-                bytes.toString('ascii', 12, 16)
-              );
+            : isPlausibleWebP(bytes);
       if (!valid)
         return error('The file does not match its image format.', 400);
       if (!(await throttle(`uploads:${user!.userId}`, 30)))
