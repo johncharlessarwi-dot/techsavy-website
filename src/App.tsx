@@ -183,7 +183,7 @@ export default function App() {
           >
             <div className='product-image'>
               {p.imageUrls?.[0] ? (
-                <img src={p.imageUrls[0]} alt={p.name} loading='lazy' />
+                <img src={p.imageUrls[0]} alt={p.name} loading='lazy' decoding='async' />
               ) : (
                 <Laptop size={64} />
               )}
