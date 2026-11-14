@@ -561,6 +561,16 @@ export default function App() {
                     <option>Out of stock</option>
                   </select>
                 </div>
+                {(query || category !== 'All' || availability !== 'All' || favoritesOnly) && (
+                  <button className='catalog-reset' type='button' onClick={() => {
+                    setQuery('');
+                    setCategory('All');
+                    setAvailability('All');
+                    setFavoritesOnly(false);
+                  }}>
+                    <X size={15} /> Reset filters
+                  </button>
+                )}
                 <div className='catalog-preferences'>
                   <label>
                     Sort products
