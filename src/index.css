@@ -1824,3 +1824,8 @@ td small {
 
 .mobile-nav-quote{display:none}
 @media(max-width:900px){.nav.open .mobile-nav-quote{display:inline-flex;width:100%;margin-top:10px;justify-content:center}}
+
+
+.catalog-tools input,.catalog-tools select,.catalog-preferences select{min-height:44px}
+.catalog-tools .search-field{min-width:min(100%,280px)}
+.catalog-tools select{cursor:pointer}
