@@ -874,7 +874,6 @@ export default function App() {
             <button onClick={() => setAnalytics('')}>
               Privacy preferences
             </button>
-            <a href='#admin'>Admin</a>
             <span>COMPUTERS & IT SERVICES</span>
           </div>
         </div>
