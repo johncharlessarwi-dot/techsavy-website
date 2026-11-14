@@ -14,6 +14,7 @@ import type { RouterMiddleware } from '@appdeploy/sdk';
 import { createHash, randomUUID } from 'node:crypto';
 import { isPlausibleWebP } from '../shared/image-validation';
 import { isPlausiblePng } from '../shared/png-validation';
+import { isPlausibleJpeg } from '../shared/jpeg-validation';
 import {
   defaultContent,
   validateProduct,
@@ -409,7 +410,7 @@ export const handler = router({
         type === 'image/png'
           ? isPlausiblePng(bytes)
           : type === 'image/jpeg'
-            ? bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255
+            ? isPlausibleJpeg(bytes)
             : isPlausibleWebP(bytes);
       if (!valid)
         return error('The file does not match its image format.', 400);
