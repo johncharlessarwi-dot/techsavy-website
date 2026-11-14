@@ -341,6 +341,9 @@ export default function App() {
                   <a href='#services' className='button secondary'>
                     Our IT services <ArrowRight size={17} />
                   </a>
+                  <a className='button tertiary' href='#products' onClick={() => { setCategory('All'); setQuery(''); }}>
+                    Browse all categories <Search size={17} />
+                  </a>
                 </div>
                 <div className='hero-footnote'>
                   <ShieldCheck size={18} />
