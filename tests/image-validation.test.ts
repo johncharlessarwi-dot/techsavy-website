@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import { isPlausibleWebP } from '../shared/image-validation.ts';
 
 function webp(chunk: string, payload = 4): Buffer {
-  const bytes = Buffer.alloc(16 + payload);
+  const bytes = Buffer.alloc(20 + payload + (payload % 2));
   bytes.write('RIFF', 0, 'ascii');
   bytes.writeUInt32LE(bytes.length - 8, 4);
   bytes.write('WEBP', 8, 'ascii');
   bytes.write(chunk, 12, 'ascii');
+  bytes.writeUInt32LE(payload, 16);
   return bytes;
 }
 
