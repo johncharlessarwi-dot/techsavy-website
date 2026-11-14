@@ -1,0 +1,31 @@
+.tech-universe{position:relative;z-index:2}
+.tech-universe-header{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:34px}
+.tech-universe-header h2{font-size:clamp(38px,5vw,67px);line-height:1;letter-spacing:-.06em;font-weight:650;margin:0}
+.tech-universe-header em{font-style:normal;color:#f0c978}
+.tech-universe-controls{display:flex;gap:8px}
+.tech-universe-controls button{display:grid;place-items:center;width:47px;height:47px;background:#171719a8;border:1px solid #ffffff44;border-radius:12px;transition:background .2s}
+.tech-universe-controls button:hover{background:#eac976;color:#16120a}
+.tech-universe-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(235px,.75fr);gap:16px}
+.tech-universe-stage{position:relative;min-height:565px;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 55% 50%,#3e321e,#101113 70%);border:1px solid #e4c97844;isolation:isolate}
+.tech-universe-stage>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.82) brightness(.75);animation:tech-picture-enter .6s ease-out}
+.tech-universe-overlay{position:absolute;inset:0;background:linear-gradient(0deg,#030405ed,#05060950 57%,#05060855),linear-gradient(90deg,#05060a66,transparent)}
+.tech-universe-index{position:absolute;top:28px;left:30px;font-size:12px;font-weight:650;letter-spacing:.16em;color:#f5d796}
+.tech-universe-caption{position:absolute;left:32px;bottom:32px;right:30px}
+.tech-universe-caption h3{font-size:clamp(33px,4.6vw,65px);line-height:1.04;letter-spacing:-.07em;margin:0 0 12px;font-weight:650;max-width:600px}
+.tech-universe-caption p{font-size:17px;color:#e7dfd0;margin-bottom:24px}
+.tech-universe-link{display:inline-flex;align-items:center;gap:12px;padding:14px 19px;background:#f0d292;border-radius:11px;font-size:13px;color:#16110a;font-weight:750;transition:transform .2s}
+.tech-universe-link:hover{transform:translateY(-2px)}
+.tech-universe-rail{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tech-universe-rail button{display:flex;align-items:flex-start;flex-direction:column;justify-content:space-between;text-align:left;gap:10px;min-width:0;padding:17px;border:1px solid #ffffff20;border-radius:16px;background:#17181ac9;color:#d0c8b8;transition:border-color .2s,background .2s,transform .2s}
+.tech-universe-rail button:hover{border-color:#deb76c88;background:#27231c}
+.tech-universe-rail button.active{background:linear-gradient(135deg,#4f3b1d,#1b1b1e);border-color:#f5d18b;box-shadow:0 0 0 1px #f5d18b33 inset;color:#fff}
+.tech-universe-rail button svg{color:#efcb83}
+.tech-universe-rail button span{font-size:13px;font-weight:700;line-height:1.2}
+.tech-universe-rail button small{font-size:10px;letter-spacing:.1em;color:#c1ab87}
+.tech-universe-footer{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:16px;color:#b6a98d;font-size:10px;letter-spacing:.13em}
+.tech-universe-footer button{border:1px solid #efcd8466;border-radius:999px;background:#e9bd6622;color:#f3d38e;padding:10px 16px;font-size:12px;letter-spacing:normal}
+.tech-universe-footer button:hover{background:#e9bd663d}
+@keyframes tech-picture-enter{from{opacity:.25;transform:scale(1.03)}to{opacity:1;transform:scale(1)}}
+@media(max-width:1000px){.tech-universe-layout{grid-template-columns:1fr}.tech-universe-stage{min-height:470px}.tech-universe-rail{grid-template-columns:repeat(5,minmax(0,1fr))}.tech-universe-rail button{min-height:105px}}
+@media(max-width:670px){.tech-universe-header{align-items:start}.tech-universe-header h2{font-size:40px}.tech-universe-controls button{width:40px;height:40px}.tech-universe-stage{min-height:420px}.tech-universe-caption{left:22px;bottom:22px;right:22px}.tech-universe-caption h3{font-size:42px}.tech-universe-rail{grid-template-columns:repeat(2,minmax(0,1fr))}.tech-universe-rail button{min-height:100px}.tech-universe-footer{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){.tech-universe-stage>img{animation:none}.tech-universe-link{transition:none}}
