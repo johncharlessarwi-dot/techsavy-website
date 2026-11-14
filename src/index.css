@@ -1829,3 +1829,6 @@ td small {
 .catalog-tools input,.catalog-tools select,.catalog-preferences select{min-height:44px}
 .catalog-tools .search-field{min-width:min(100%,280px)}
 .catalog-tools select{cursor:pointer}
+
+
+.catalog-clear-search:focus-visible,.catalog-reset:focus-visible,.catalog-help-button:focus-visible,.mobile-nav-quote:focus-visible{outline:3px solid #f9e09c;outline-offset:3px}
