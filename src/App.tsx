@@ -598,6 +598,10 @@ export default function App() {
                   comparison use loaded products; load more to include the next
                   catalog page.
                 </p>
+                <div className='catalog-results-heading' aria-live='polite'>
+                  <span className='catalog-results-count'>{filtered.length} matching {filtered.length === 1 ? 'product' : 'products'}</span>
+                  <span>{products.length} loaded in this catalog</span>
+                </div>
                 <p className='catalog-note' role='status'>
                   {choices.notice ||
                     `${filtered.length} matching loaded products · ${choices.compare.length} selected for comparison`}
