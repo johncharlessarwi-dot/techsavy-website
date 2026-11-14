@@ -604,6 +604,9 @@ export default function App() {
                   comparison use loaded products; load more to include the next
                   catalog page.
                 </p>
+                <button className='catalog-help-button' type='button' onClick={() => setRequest({ kind: 'Quotation' })}>
+                  Can't find your device? Request sourcing help <ArrowUpRight size={16} />
+                </button>
                 <div className='catalog-results-heading' aria-live='polite'>
                   <span className='catalog-results-count'>{filtered.length} matching {filtered.length === 1 ? 'product' : 'products'}</span>
                   <span>{products.length} loaded in this catalog</span>
