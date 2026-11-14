@@ -1,4 +1,4 @@
-import { BackgroundVideo } from './BackgroundVideo';
+import { EquipmentBackdrop } from './EquipmentBackdrop';
 import {
   Cpu,
   MemoryStick,
@@ -56,23 +56,13 @@ const devices = [
 export function Atmosphere({ paused }: { paused: boolean }) {
   return (
     <div className={`atmosphere ${paused ? 'paused' : ''}`} aria-hidden='true'>
-      <BackgroundVideo paused={paused} />
+      <EquipmentBackdrop paused={paused} />
       <div className='aurora aurora-one' />
       <div className='aurora aurora-two' />
       <div className='grid-field' />
       <div className='circuit circuit-one' />
       <div className='circuit circuit-two' />
-      <div className='device-field'>
-        {devices.map(({ Icon, name, label }) => (
-          <div
-            key={name}
-            className={`background-device background-device-${name}`}
-          >
-            <Icon className='background-device-icon' />
-            <span>{label}</span>
-          </div>
-        ))}
-      </div>
+
     </div>
   );
 }
