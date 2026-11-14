@@ -1839,3 +1839,6 @@ td small {
 
 
 .button:active,.catalog-clear-search:active,.catalog-reset:active,.catalog-help-button:active{transform:translateY(1px) scale(.99)}
+
+
+@media(max-width:700px){.catalog-clear-search,.catalog-reset,.catalog-help-button{width:100%;min-height:48px}.catalog-results-heading{align-items:flex-start;flex-direction:column}.hero .actions .tertiary{justify-content:flex-start}}
