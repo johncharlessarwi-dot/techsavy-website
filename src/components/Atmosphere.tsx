@@ -1,4 +1,5 @@
 import { EquipmentBackdrop } from './EquipmentBackdrop';
+import { CinematicVideo } from './CinematicVideo';
 import {
   Cpu,
   MemoryStick,
@@ -57,6 +58,7 @@ export function Atmosphere({ paused }: { paused: boolean }) {
   return (
     <div className={`atmosphere ${paused ? 'paused' : ''}`} aria-hidden='true'>
       <EquipmentBackdrop paused={paused} />
+      <CinematicVideo paused={paused} />
       <div className='aurora aurora-one' />
       <div className='aurora aurora-two' />
       <div className='grid-field' />
