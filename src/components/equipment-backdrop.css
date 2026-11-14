@@ -5,3 +5,11 @@
 .equipment-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,5,6,.95) 0%,rgba(6,7,9,.7) 45%,rgba(5,5,7,.7) 100%),linear-gradient(0deg,#080808 0%,transparent 22%,transparent 75%,#080808 100%)}
 @media(max-width:700px){.equipment-slide.active{opacity:.35}.equipment-shade{background:linear-gradient(180deg,#080808aa,#080808bd 50%,#080808)}}
 @media(prefers-reduced-motion:reduce){.equipment-slide{transition:none}.equipment-slide:not(:first-child){display:none}.equipment-slide:first-child{opacity:.42}}
+
+.equipment-preload{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+.equipment-slide.fallback-image{opacity:.44}
+.equipment-slide:not(.fallback-image).active{animation:hardware-fade-in .9s ease both}
+.equipment-slide:not(.fallback-image) img{animation:hardware-ken-burns 4.5s ease-out both}
+@keyframes hardware-fade-in{from{opacity:0}to{opacity:.53}}
+@keyframes hardware-ken-burns{from{transform:scale(1.055)}to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.equipment-slide:not(.fallback-image),.equipment-slide:not(.fallback-image) img{animation:none}}
