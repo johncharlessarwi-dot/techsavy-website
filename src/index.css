@@ -1812,3 +1812,7 @@ td small {
 
 .catalog-results-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:18px 0;padding:14px 18px;border:1px solid #ffffff17;border-radius:12px;background:#ffffff07;color:#c5bdab;font-size:13px}
 .catalog-results-count{color:#ffe3a0;font-size:15px;font-weight:700}
+
+
+.catalog-help-button{width:100%;margin-top:14px;margin-bottom:8px;min-height:46px}
+.catalog-help-button:hover{transform:translateY(-1px)}
