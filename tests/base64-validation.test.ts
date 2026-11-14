@@ -14,7 +14,7 @@ test('canonical Base64 round trips binary bytes', () => {
 });
 
 test('reject noncanonical Base64, whitespace and missing padding', () => {
-  for (const encoded of ['AB==', 'AAA=', 'AQ=', 'AQ', 'AQ===', 'AQ==\\n', ' AQ==', 'AQ== ', 'AQ-_']) {
+  for (const encoded of ['AB==', 'AAB=', 'AQ=', 'AQ', 'AQ===', 'AQ==\\n', ' AQ==', 'AQ== ', 'AQ-_']) {
     assert.equal(decodeImageBase64(encoded), null, encoded);
   }
 });
