@@ -84,11 +84,17 @@ export function EquipmentBackdrop({ paused }: { paused: boolean }) {
   useEffect(() => {
     if (paused || reducedMotion) return;
     const timer = window.setInterval(() => {
-      setActive((old) => (old + 1) % scenes.length);
+      setActive((old) => {
+        for (let step = 1; step <= scenes.length; step++) {
+          const next = (old + step) % scenes.length;
+          if (!failedUrls.includes(scenes[next].photo)) return next;
+        }
+        return old;
+      });
       setLoaded(false);
     }, 4300);
     return () => window.clearInterval(timer);
-  }, [paused, reducedMotion, scenes.length]);
+  }, [paused, reducedMotion, scenes, failedUrls]);
 
   const showFallback = !loaded || failedUrls.includes(current.photo);
   return (
