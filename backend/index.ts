@@ -13,6 +13,7 @@ import {
 import type { RouterMiddleware } from '@appdeploy/sdk';
 import { createHash, randomUUID } from 'node:crypto';
 import { isPlausibleWebP } from '../shared/image-validation';
+import { isPlausiblePng } from '../shared/png-validation';
 import {
   defaultContent,
   validateProduct,
@@ -406,9 +407,7 @@ export const handler = router({
         return error('Image must be under 5 MB.', 400);
       const valid =
         type === 'image/png'
-          ? bytes
-              .subarray(0, 8)
-              .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
+          ? isPlausiblePng(bytes)
           : type === 'image/jpeg'
             ? bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255
             : isPlausibleWebP(bytes);
