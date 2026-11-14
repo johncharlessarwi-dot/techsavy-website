@@ -535,6 +535,11 @@ export default function App() {
                       onChange={(e) => setQuery(e.target.value)}
                     />
                   </label>
+                  {query && (
+                    <button className='catalog-clear-search' type='button' onClick={() => setQuery('')} aria-label='Clear product search'>
+                      <X size={16} /> Clear search
+                    </button>
+                  )}
                   <select
                     aria-label='Product category'
                     value={category}
