@@ -66,39 +66,24 @@ export function Atmosphere({ paused }: { paused: boolean }) {
     </div>
   );
 }
+/** Product photography replaces the previous CSS-drawn laptop scene. */
 export function DeviceScene() {
   return (
-    <div
-      className='device-scene'
-      aria-label='Illustration of a laptop with a glowing golden yellow screen'
-      role='img'
-    >
-      <div className='orbit orbit-one' />
-      <div className='orbit orbit-two' />
+    <div className='device-scene real-device-scene' aria-label='Real laptop and desktop equipment photograph' role='img'>
+      <img
+        src='https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&fit=crop&w=1200&q=80'
+        alt=''
+        loading='eager'
+        decoding='async'
+      />
+      <div className='real-device-shade' />
       <div className='device-tag tag-top'>
-        <span className='status-dot' /> BUILT AROUND YOUR NEEDS
-      </div>
-      <div className='laptop'>
-        <div className='laptop-screen'>
-          <div className='screen-glow' />
-          <div className='screen-lines' />
-          <span className='screen-brand'>
-            t<span> / </span>
-          </span>
-          <span className='screen-caption'>AHEAD OF WHAT’S NEXT.</span>
-        </div>
-        <div className='laptop-base'>
-          <div className='trackpad' />
-        </div>
+        <span className='status-dot' /> REAL TECH. REAL POSSIBILITIES.
       </div>
       <div className='device-tag tag-bottom'>
         <Cpu size={20} />
-        <div>
-          <b>More possibility.</b>
-          <small>One smart upgrade.</small>
-        </div>
+        <div><b>Equipment for every setup.</b><small>Computers · Accessories · Networking</small></div>
       </div>
-      <span className='scene-label'>COMPUTERS · COMPONENTS · CONNECTIONS</span>
     </div>
   );
 }
