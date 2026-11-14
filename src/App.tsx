@@ -250,6 +250,11 @@ export default function App() {
   return (
     <div className={paused ? 'site motion-paused' : 'site'}>
       <Atmosphere paused={paused} />
+      {import.meta.env.VITE_TECHSAVY_SHOWROOM === '1' && (
+        <div className='migration-notice' role='status'>
+          <strong>Vercel design preview</strong> — Product requests and administrator operations are unavailable until the secure database and authentication migration is completed.
+        </div>
+      )}
       <a
         className='skip-link'
         href='#main-content'
