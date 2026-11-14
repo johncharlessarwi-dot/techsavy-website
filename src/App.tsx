@@ -333,14 +333,13 @@ export default function App() {
                   <span className='status-dot' /> YOUR NEXT CHAPTER STARTS HERE
                 </span>
                 <h1>
-                  Good tech.
+                  Engineered for
                   <br />
-                  Great <span className='gradient-text'>possibilities.</span>
+                  <span className='gradient-text'>what's next.</span>
                 </h1>
                 <p>
-                  Computers, accessories and IT expertise.
-                  <br className='desktop-break' /> Everything you need to work
-                  smarter, create more and keep moving.
+                  Premium computing, powerful workstations and the technology
+                  that moves your business forward. Find your next upgrade with TECHSAVY.
                 </p>
                 <div className='actions'>
                   <a href='#products' className='button primary'>
