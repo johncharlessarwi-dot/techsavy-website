@@ -15,6 +15,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { isPlausibleWebP } from '../shared/image-validation';
 import { isPlausiblePng } from '../shared/png-validation';
 import { isPlausibleJpeg } from '../shared/jpeg-validation';
+import { decodeImageBase64 } from '../shared/base64-validation';
 import {
   defaultContent,
   validateProduct,
@@ -401,9 +402,8 @@ export const handler = router({
       const b = record(body);
       const type = choice(b.type, ['image/png', 'image/jpeg', 'image/webp']);
       const base64 = text(b.base64, 7000000, true);
-      if (!/^[A-Za-z0-9+/]*={0,2}$/.test(base64))
-        return error('Invalid image encoding.', 400);
-      const bytes = Buffer.from(base64, 'base64');
+      const bytes = decodeImageBase64(base64);
+      if (!bytes) return error('Invalid image encoding.', 400);
       if (bytes.length > 5 * 1024 * 1024 || bytes.length < 12)
         return error('Image must be under 5 MB.', 400);
       const valid =
