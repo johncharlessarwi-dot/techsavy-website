@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, CircuitBoard, Code2, Cpu, Drone, HardDrive, Keyboard, Monitor, Network, Server } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, CircuitBoard, Code2, Cpu, Plane, HardDrive, Keyboard, Monitor, Network, Server } from 'lucide-react';
 import './tech-universe.css';
 
 const universes = [
-  { title: 'The Drone Lab', subtitle: 'Precision from above', category: 'Aerial technology', photo: 'https://loremflickr.com/1200/900/drone,quadcopter?lock=41', Icon: Drone, link: '#contact' },
+  { title: 'The Drone Lab', subtitle: 'Precision from above', category: 'Aerial technology', photo: 'https://loremflickr.com/1200/900/drone,quadcopter?lock=41', Icon: Plane, link: '#contact' },
   { title: 'Workstation Culture', subtitle: 'Power for every creator', category: 'Desktop computing', photo: 'https://images.unsplash.com/photo-1659083475067-8ab6af362082?auto=format&fit=crop&w=1100&q=80', Icon: Monitor, link: '#products' },
   { title: 'Inside the Machine', subtitle: 'Performance at the core', category: 'CPUs & components', photo: 'https://loremflickr.com/1200/900/computer,processor?lock=43', Icon: Cpu, link: '#products' },
   { title: 'Built to Type', subtitle: 'Every keystroke matters', category: 'Keyboards', photo: 'https://loremflickr.com/1200/900/mechanical,keyboard?lock=44', Icon: Keyboard, link: '#products' },
