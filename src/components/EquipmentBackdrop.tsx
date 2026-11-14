@@ -1,14 +1,54 @@
-import { useEffect, useState } from 'react';
-import './equipment-backdrop.css';
-
-/** Real equipment photography, free to use under the Unsplash license. */
-export const equipmentScenes = [
-  { label: 'Computer workstation and laptop', photo: 'https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&fit=crop&w=1800&q=78', credit: 'Dell / Unsplash' },
-  { label: 'Camera equipment and editing monitors', photo: 'https://images.unsplash.com/photo-1757845524683-611470b2d7ce?auto=format&fit=crop&w=1800&q=78', credit: 'Jakub Żerdzicki / Unsplash' },
-  { label: 'Server infrastructure and equipment racks', photo: 'https://images.unsplash.com/photo-1775519520461-6b6e068d9250?auto=format&fit=crop&w=1800&q=78', credit: 'Eric Stoynov / Unsplash' },
-  { label: 'Dual monitor computer workstation', photo: 'https://images.unsplash.com/photo-1659083475067-8ab6af362082?auto=format&fit=crop&w=1800&q=78', credit: 'Ritupon Baishya / Unsplash' },
+/** Background photo queue: 10 tech categories × 10 photo slots. */
+export const equipmentCategories = [
+  {
+    "label": "drones",
+    "query": "drone,technology"
+  },
+  {
+    "label": "desktops",
+    "query": "desktop,computer"
+  },
+  {
+    "label": "processors",
+    "query": "cpu,processor"
+  },
+  {
+    "label": "keyboards",
+    "query": "keyboard,computer"
+  },
+  {
+    "label": "rj45",
+    "query": "ethernet,rj45"
+  },
+  {
+    "label": "external-storage",
+    "query": "external,hard-drive"
+  },
+  {
+    "label": "coding",
+    "query": "coding,computer"
+  },
+  {
+    "label": "servers",
+    "query": "server,rack"
+  },
+  {
+    "label": "monitors",
+    "query": "monitor,computer"
+  },
+  {
+    "label": "accessories",
+    "query": "electronics,accessories"
+  }
 ] as const;
 
+export const equipmentScenes = equipmentCategories.flatMap(({ label, query }) =>
+  Array.from({ length: 10 }, (_, index) => ({
+    label,
+    /** Remote photography slots are best-effort, not a curated asset library. */
+    photo: `https://loremflickr.com/1600/900/${query}?lock=${index + 1}`,
+  })),
+);
 export function EquipmentBackdrop({ paused }: { paused: boolean }) {
   const [active, setActive] = useState(0);
   useEffect(() => {
