@@ -24,7 +24,9 @@ export function TechUniverse() {
 
   useEffect(() => {
     if (!autoPlay || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => change(1), 6800);
+    const timer = window.setInterval(() => {
+      setActive((value) => (value + 1) % universes.length);
+    }, 6800);
     return () => window.clearInterval(timer);
   }, [autoPlay]);
 
