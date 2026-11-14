@@ -1816,3 +1816,7 @@ td small {
 
 .catalog-help-button{width:100%;margin-top:14px;margin-bottom:8px;min-height:46px}
 .catalog-help-button:hover{transform:translateY(-1px)}
+
+
+.button.tertiary{color:#f3d58e;border:1px solid transparent;background:transparent;padding-left:3px;padding-right:3px;box-shadow:none}
+.button.tertiary:hover{color:#fff3cd;background:#ffffff08;border-color:#ffffff16;padding-left:14px;padding-right:14px}
