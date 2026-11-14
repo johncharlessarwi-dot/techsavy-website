@@ -32,6 +32,7 @@ import {
 } from '../shared/domain';
 import type { Product, SiteContent } from '../shared/domain';
 import { Atmosphere, DeviceScene } from './components/Atmosphere';
+import { PremiumShowcase } from './components/PremiumShowcase';
 import { RequestForm, errorMessage } from './components/RequestForm';
 import { Admin } from './components/Admin';
 import {
@@ -380,6 +381,7 @@ export default function App() {
                 </span>
               </div>
             </div>
+            <PremiumShowcase />
             <section className='section container'>
               <div className='section-head'>
                 <div>
