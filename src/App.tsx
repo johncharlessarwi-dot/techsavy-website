@@ -286,6 +286,9 @@ export default function App() {
               {page.charAt(0).toUpperCase() + page.slice(1)}
             </a>
           ))}
+          <button className='mobile-nav-quote button primary' onClick={() => { setMenu(false); setRequest({ kind: 'Quotation' }); }}>
+            Request a quote <ArrowUpRight size={17} />
+          </button>
         </nav>
         <div className='header-actions'>
           <button
