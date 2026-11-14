@@ -1842,3 +1842,6 @@ td small {
 
 
 @media(max-width:700px){.catalog-clear-search,.catalog-reset,.catalog-help-button{width:100%;min-height:48px}.catalog-results-heading{align-items:flex-start;flex-direction:column}.hero .actions .tertiary{justify-content:flex-start}}
+
+
+@media(max-width:380px){.catalog-results-heading{padding:12px;font-size:12px}.catalog-results-count{font-size:14px}.catalog-help-button{font-size:12px}}
