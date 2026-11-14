@@ -42,3 +42,31 @@ test('WebP container checks Uint8Array slice boundaries', () => {
   assert.equal(isPlausibleWebP(wrapper.subarray(7, 7 + encoded.length)), true);
   assert.equal(isPlausibleWebP(wrapper), false);
 });
+
+test('WebP rejects chunk size claims extending past the actual file', () => {
+  const bytes = webp('VP8 ');
+  bytes.writeUInt32LE(0xffffffff, 16);
+  assert.equal(isPlausibleWebP(bytes), false);
+});
+
+test('WebP requires every chunk header and payload to fit RIFF bounds', () => {
+  const bytes = webp('VP8 ');
+  const truncated = Buffer.concat([bytes, Buffer.from([1, 2, 3, 4])]);
+  truncated.writeUInt32LE(truncated.length - 8, 4);
+  assert.equal(isPlausibleWebP(truncated), false);
+
+  const second = Buffer.alloc(10);
+  second.write('EXIF', 0, 'ascii');
+  second.writeUInt32LE(4, 4);
+  const incomplete = Buffer.concat([bytes, second]);
+  incomplete.writeUInt32LE(incomplete.length - 8, 4);
+  assert.equal(isPlausibleWebP(incomplete), false);
+});
+
+test('WebP supports correctly padded odd-sized chunks', () => {
+  assert.equal(isPlausibleWebP(webp('VP8 ', 5)), true);
+  const odd = webp('VP8 ', 5);
+  const missingPad = odd.subarray(0, -1);
+  missingPad.writeUInt32LE(missingPad.length - 8, 4);
+  assert.equal(isPlausibleWebP(missingPad), false);
+});
