@@ -80,8 +80,6 @@ export function EquipmentBackdrop({ paused }: { paused: boolean }) {
   }, []);
 
   const current = scenes[active];
-  const nextIndex = (active + 1) % scenes.length;
-  const nextScene = scenes[nextIndex];
 
   useEffect(() => {
     if (paused || reducedMotion) return;
@@ -111,7 +109,6 @@ export function EquipmentBackdrop({ paused }: { paused: boolean }) {
         onLoad={() => setLoaded(true)}
         onError={() => { setLoaded(false); setFailedUrls((old) => old.includes(current.photo) ? old : [...old, current.photo]); }}
       />
-      {nextScene && !reducedMotion && <link rel='preload' as='image' href={nextScene.photo} />}
       <div className='equipment-shade' />
     </div>
   );
