@@ -1845,3 +1845,12 @@ td small {
 
 
 @media(max-width:380px){.catalog-results-heading{padding:12px;font-size:12px}.catalog-results-count{font-size:14px}.catalog-help-button{font-size:12px}}
+
+/* Authentic hardware hero photography */
+.real-device-scene{position:relative;min-height:460px;overflow:hidden;border-radius:22px;border:1px solid #f5c54240;box-shadow:0 28px 75px #0009}
+.real-device-scene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.78) contrast(1.1)}
+.real-device-shade{position:absolute;inset:0;background:linear-gradient(0deg,#090909b5,transparent 55%,#09090990)}
+.real-device-scene .device-tag{z-index:2;position:absolute}
+.real-device-scene .tag-top{top:24px;left:24px}
+.real-device-scene .tag-bottom{bottom:24px;right:24px}
+@media(max-width:700px){.real-device-scene{min-height:300px;border-radius:16px}.real-device-scene .tag-top{top:12px;left:12px}.real-device-scene .tag-bottom{bottom:12px;right:12px}}
