@@ -1854,3 +1854,8 @@ td small {
 .real-device-scene .tag-top{top:24px;left:24px}
 .real-device-scene .tag-bottom{bottom:24px;right:24px}
 @media(max-width:700px){.real-device-scene{min-height:300px;border-radius:16px}.real-device-scene .tag-top{top:12px;left:12px}.real-device-scene .tag-bottom{bottom:12px;right:12px}}
+
+/* Clearly label temporary Vercel frontend-only migration builds. */
+.migration-notice{position:relative;z-index:30;padding:14px 24px;text-align:center;background:#29200d;border-bottom:1px solid #e9be52;color:#ffe6a3;font-size:14px;line-height:1.5}
+.migration-notice strong{color:#fff4cf}
+@media(max-width:700px){.migration-notice{padding:12px 16px;font-size:12px}}
