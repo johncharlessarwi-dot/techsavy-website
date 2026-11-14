@@ -1832,3 +1832,7 @@ td small {
 
 
 .catalog-clear-search:focus-visible,.catalog-reset:focus-visible,.catalog-help-button:focus-visible,.mobile-nav-quote:focus-visible{outline:3px solid #f9e09c;outline-offset:3px}
+
+
+.product-card:focus-visible{outline:3px solid #f9e09c;outline-offset:4px}
+.product-card-wrap:focus-within{border-radius:15px;box-shadow:0 0 0 1px #f5c54240}
