@@ -1799,3 +1799,8 @@ td small {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Catalog filtering actions */
+.catalog-clear-search,.catalog-reset,.catalog-help-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #f5c54255;border-radius:10px;padding:11px 15px;background:#f5c5420d;color:#f8d780;font-size:13px;font-weight:600;transition:background .2s,border-color .2s}
+.catalog-clear-search:hover,.catalog-reset:hover,.catalog-help-button:hover{background:#f5c54222;border-color:#f5c542}
