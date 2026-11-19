@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "types": ["node"], "noUnusedLocals": false },
+  "compilerOptions": { "types": ["node", "vite/client"], "noUnusedLocals": false },
   "include": ["src", "shared", "backend", "types"]
 }
