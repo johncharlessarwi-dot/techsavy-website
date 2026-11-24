@@ -1,0 +1,51 @@
+name: Responsive navigation
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.github/workflows/responsive-navigation.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+        env:
+          TECHSAVY_LOCAL_PREVIEW: "1"
+      - run: python -m pip install playwright==1.55.0
+      - name: Navigate on phone, tablet and desktop
+        run: |
+          python -m http.server 4173 --bind 127.0.0.1 --directory dist >/tmp/navigation-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server"' EXIT
+          curl --silent --fail --retry 5 --retry-connrefused http://127.0.0.1:4173/ >/dev/null
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright, expect
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch(executable_path="/usr/bin/google-chrome")
+              for width, height in [(320,568),(360,800),(390,844),(430,932),(667,375),(844,390),(768,1024),(1440,900)]:
+                  page = browser.new_page(viewport={"width":width, "height":height}, reduced_motion="reduce")
+                  page.goto("http://127.0.0.1:4173/", wait_until="domcontentloaded")
+                  menu = page.locator(".mobile-toggle")
+                  for route in ["products", "services", "about", "contact", "home"]:
+                      if menu.is_visible():
+                          menu.click()
+                      link = page.locator(f'nav a[href="#{route}"]')
+                      link.click()
+                      expect(link).to_have_attribute("aria-current", "page")
+                      if menu.is_visible():
+                          expect(menu).to_have_attribute("aria-expanded", "false")
+                  print(f"Passed navigation at {width}x{height}", flush=True)
+                  page.close()
+              browser.close()
+          PY
