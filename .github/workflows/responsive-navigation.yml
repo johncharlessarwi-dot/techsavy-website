@@ -19,6 +19,8 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm run build
+        env:
+          TECHSAVY_LOCAL_PREVIEW: "1"
       - run: python -m pip install playwright==1.55.0
       - name: Navigate on phone, tablet and desktop
         run: |
