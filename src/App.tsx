@@ -282,12 +282,12 @@ export default function App() {
             techsavy<span className='brand-dot'>.</span>
           </span>
         </a>
-        <nav aria-label='Main navigation' className={menu ? 'nav open' : 'nav'}>
+        <nav id='site-navigation' aria-label='Main navigation' className={menu ? 'nav open' : 'nav'}>
           {['home', 'products', 'services', 'about', 'contact'].map((page) => (
             <a
               key={page}
               href={`#${page}`}
-              onClick={() => setSelected(null)}
+              onClick={() => { setSelected(null); setMenu(false); }}
               aria-current={route === page ? 'page' : undefined}
             >
               {page.charAt(0).toUpperCase() + page.slice(1)}
@@ -318,6 +318,7 @@ export default function App() {
           </button>
           <button
             className='icon-button mobile-toggle'
+            aria-controls='site-navigation'
             aria-expanded={menu}
             aria-label='Toggle navigation'
             onClick={() => setMenu(!menu)}
