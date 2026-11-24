@@ -1889,3 +1889,13 @@ td small {
 @media(max-width:900px){.header{padding:16px 26px}.hero{min-height:680px;padding-top:65px;padding-bottom:70px}}
 @media(max-width:700px){.header{padding:13px 17px}.hero{min-height:auto;padding-top:50px;padding-bottom:58px}.hero h1{font-size:clamp(43px,11vw,65px)}.hero .actions{gap:12px}.hero .button{width:100%}.button{min-height:48px}}
 @media(prefers-reduced-motion:reduce){.product-card-wrap,.product-card .product-image img,.button{transition:none!important}.product-card-wrap:hover,.button:hover{transform:none}}
+
+@media (max-width: 700px) {
+  .nav.open {
+    max-height: calc(100vh - 120px);
+    max-height: calc(100dvh - 120px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .nav.open a { min-height: 44px; display: flex; align-items: center; flex-shrink: 0; }
+}
